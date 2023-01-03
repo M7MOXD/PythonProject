@@ -1,4 +1,4 @@
-import json, create_project
+import json, datetime, create_project
 from utils import Validator
 
 
@@ -10,23 +10,25 @@ def edit_project(user_email):
         print(
             f"Project Title: {project['Title']}, Project Details: {project['Details']}, Total Target: {project['Total_Target']}, Start Time: {project['Start_Time']}, End Time: {project['End_Time']}"
         )
-        if input(f"Edit Project Title: {project['Title']}\nLeave It Empty To Not Change\n"):
+        if input(f"Edit Project Title: {project['Title']}\nLeave It Empty To Not Change\nEnter Any Key and Press Enter To Change Value\n"):
             title = Validator.validate_name("Project Title")
         else:
             title = project["Title"]
-        if input(f"Edit Project Details: {project['Details']}\nLeave It Empty To Not Change\n"):
+        if input(f"Edit Project Details: {project['Details']}\nLeave It Empty To Not Change\nEnter Any Key and Press Enter To Change Value\n"):
             details = Validator.validate_name("Project Details")
         else:
             details = project["Details"]
-        if input(f"Edit Project Total_Target: {project['Total_Target']}\nLeave It Empty To Not Change\n"):
+        if input(f"Edit Project Total Target: {project['Total_Target']}\nLeave It Empty To Not Change\nEnter Any Key and Press Enter To Change Value\n"):
             total_target = Validator.validate_number("Total Target")
         else:
-            total_target = project["Title"]
-        if input(f"Edit Project Start Time: {project['Start_Time']}\nLeave It Empty To Not Change\n"):
+            total_target = project["Total_Target"]
+        if input(f"Edit Project Start Time: {project['Start_Time']}\nLeave It Empty To Not Change\nEnter Any Key and Press Enter To Change Value\n"):
             start_date = Validator.validate_time("Start Time: dd/mm/yy")
         else:
-            start_date = project["Start_Time"]
-        if input(f"Edit Project End Time: {project['End_Time']}\nLeave It Empty To Not Change\n"):
+            start_date = datetime.datetime.strptime(project["Start_Time"], "%Y-%m-%d %H:%M:%S")
+        if start_date > datetime.datetime.strptime(project["End_Time"], "%Y-%m-%d %H:%M:%S") or input(
+            f"Edit Project End Time: {project['End_Time']}\nLeave It Empty To Not Change\nEnter Any Key and Press Enter To Change Value\n"
+        ):
             end_date = Validator.validate_time("End Time: dd/mm/yy", start_date)
         else:
             end_date = project["End_Time"]
